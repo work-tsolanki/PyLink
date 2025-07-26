@@ -2,8 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport", content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="home_page_stylesheet.css">
+        <script src="leftNavBar.js"></script>
+
         <title> PyLink </title>   
     </head>
 
@@ -11,12 +13,15 @@
 
 <body>
 
-    <aside>
+    <aside class="leftNavBarBackground">
 
-        <nav>
-            <li> sd </li>
-            <li> sdf </li>
-            <li> sd </li>
+        <nav class="leftNavBarStyling">
+            <li id="dashboard" onmouseenter="dashboard_enter()" onmouseleave="dashboard_leave()"> 
+                <a href="#"> 
+                    <img src="icons/messages.png" alt="dashboard" id="dashboard" width="20px" height="20px" style="padding-right: 1rem;">
+                    Chats
+                </a>  
+            </li>
         </nav>
 
     </aside>

@@ -1,15 +1,15 @@
-aside{
-
-    background-color: grey;
+.leftNavBarBackground{
+    display: block;
+    background-color: #0C0C0C;
     float: left;
-    padding-bottom: 100%;
-    padding-right: 2%;
+    padding-bottom: 88vh;
+    width: 25vh;
     box-shadow: 0px 0px 1px 1px #81689D inset;
 }
 
 .leftNavBarStyling{
-    margin-top: 2rem;
-    margin-left: 1rem;
+    margin-top: 3rem;
+    margin-left: 2vh;
     list-style-type: none;
     color: aliceblue;
     font-size: larger;
@@ -17,9 +17,13 @@ aside{
 
 .leftNavBarStyling li{
     border: #81689D 1px solid;
-    padding: 5px 1rem 5px 1rem;
+    padding-left: 2vh;
+    padding-top: 1vh;
     box-shadow: 0px 0px 2px #81689D;
     border-radius: 5px;
+    width: 19vh;
+    height: 4vh;
+    text-align: left;
 
 }
 
