@@ -1,0 +1,1084 @@
+<html class="h-full bg-gray-100" lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   WhatsApp Web Clone
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body,
+    html {
+      font-family: "Inter", sans-serif;
+      height: 100%;
+      margin: 0;
+    }
+    /* Scrollbar styling */
+    .scrollbar-thin::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .scrollbar-thin::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .scrollbar-thin::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+    }
+    /* Hide scrollbar for Firefox */
+    .scrollbar-thin {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+    }
+  </style>
+ </head>
+ <body class="h-full flex flex-col">
+  <div class="flex flex-1 h-full max-h-screen overflow-hidden">
+   <!-- Sidebar -->
+   <aside class="w-80 bg-white border-r border-gray-300 flex flex-col" id="sidebar">
+    <!-- Header -->
+    <header class="flex items-center justify-between px-4 py-3 border-b border-gray-300">
+     <img alt="WhatsApp logo white text on green background" class="rounded-full" height="40" loading="lazy" src="https://storage.googleapis.com/a1aa/image/6f122d10-27be-4333-09c5-fcb679515ac8.jpg" width="40"/>
+     <div class="flex space-x-4 text-gray-600">
+      <button aria-label="Status" class="hover:bg-gray-200 p-2 rounded-full transition" type="button">
+       <i class="fas fa-circle-notch fa-lg">
+       </i>
+      </button>
+      <button aria-label="New chat" class="hover:bg-gray-200 p-2 rounded-full transition" id="new-chat-btn" type="button">
+       <i class="fas fa-comment-alt fa-lg">
+       </i>
+      </button>
+      <div class="relative">
+       <button aria-label="Menu" class="hover:bg-gray-200 p-2 rounded-full transition" id="sidebar-menu-btn" type="button">
+        <i class="fas fa-ellipsis-v fa-lg">
+        </i>
+       </button>
+       <div class="hidden absolute right-0 top-full mt-2 w-48 bg-white border border-gray-300 rounded shadow-lg z-20" id="sidebar-menu">
+        <ul class="text-sm text-gray-700">
+         <li>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100" id="menu-new-group" type="button">
+           New group
+          </button>
+         </li>
+         <li>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100" id="menu-new-broadcast" type="button">
+           New broadcast
+          </button>
+         </li>
+         <li>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100" id="menu-starred-messages" type="button">
+           Starred messages
+          </button>
+         </li>
+         <li>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100" id="menu-settings" type="button">
+           Settings
+          </button>
+         </li>
+         <li>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100" id="menu-logout" type="button">
+           Log out
+          </button>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </header>
+    <!-- Search -->
+    <div class="px-4 py-2 border-b border-gray-300">
+     <div class="relative text-gray-600">
+      <input aria-label="Search or start new chat" autocomplete="off" class="w-full bg-gray-100 rounded-full pl-10 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" id="search-input" name="search" placeholder="Search or start new chat" type="search"/>
+      <div class="absolute left-3 top-2.5 text-gray-400 pointer-events-none">
+       <i class="fas fa-search">
+       </i>
+      </div>
+     </div>
+    </div>
+    <!-- Chat list -->
+    <nav aria-label="Chat list" class="flex-1 overflow-y-auto scrollbar-thin" id="chat-list">
+     <!-- Chats inserted by JS -->
+    </nav>
+   </aside>
+   <!-- Main chat area -->
+   <main class="flex-1 flex flex-col bg-white" id="main-chat-area" tabindex="-1">
+    <!-- Chat header -->
+    <header class="flex items-center border-b border-gray-300 px-4 py-3 min-h-[60px]" id="chat-header">
+     <button aria-label="Back to chat list" class="md:hidden mr-3 text-gray-600 hover:bg-gray-200 p-2 rounded-full" id="back-to-sidebar" type="button">
+      <i class="fas fa-arrow-left fa-lg">
+      </i>
+     </button>
+     <img alt="WhatsApp logo white text on green background" class="rounded-full mr-3" height="40" id="chat-header-img" loading="lazy" src="https://storage.googleapis.com/a1aa/image/ddfcf080-c34e-4863-aab3-11d0fb5a027c.jpg" width="40"/>
+     <div class="flex-1 min-w-0">
+      <h2 class="text-lg font-semibold text-gray-900 truncate" id="chat-header-name">
+       Select a chat
+      </h2>
+      <p class="text-xs text-gray-500 truncate" id="chat-header-status">
+       WhatsApp Web Clone
+      </p>
+     </div>
+     <div class="flex space-x-4 text-gray-600 ml-3">
+      <button aria-label="Search in chat" class="hover:bg-gray-200 p-2 rounded-full transition" id="chat-search-btn" type="button">
+       <i class="fas fa-search">
+       </i>
+      </button>
+      <button aria-label="Attach file" class="hover:bg-gray-200 p-2 rounded-full transition" id="chat-attach-btn" type="button">
+       <i class="fas fa-paperclip">
+       </i>
+      </button>
+      <div class="relative">
+       <button aria-label="More options" class="hover:bg-gray-200 p-2 rounded-full transition" id="chat-menu-btn" type="button">
+        <i class="fas fa-ellipsis-v">
+        </i>
+       </button>
+       <div class="hidden absolute right-0 top-full mt-2 w-48 bg-white border border-gray-300 rounded shadow-lg z-20" id="chat-menu">
+        <ul class="text-sm text-gray-700">
+         <li>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100" id="chat-menu-view-contact" type="button">
+           View contact
+          </button>
+         </li>
+         <li>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100" id="chat-menu-mute-notifications" type="button">
+           Mute notifications
+          </button>
+         </li>
+         <li>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100" id="chat-menu-clear-messages" type="button">
+           Clear messages
+          </button>
+         </li>
+         <li>
+          <button class="w-full text-left px-4 py-2 hover:bg-gray-100" id="chat-menu-delete-chat" type="button">
+           Delete chat
+          </button>
+         </li>
+        </ul>
+       </div>
+      </div>
+     </div>
+    </header>
+    <!-- Messages area -->
+    <section aria-live="polite" aria-relevant="additions" class="flex-1 overflow-y-auto p-4 scrollbar-thin bg-gray-50" id="messages-container">
+     <div class="flex flex-col space-y-2 max-w-3xl mx-auto" id="messages" tabindex="0">
+      <p class="text-center text-gray-400 mt-10 select-none" id="no-chat-text">
+       Select a chat to start messaging
+      </p>
+     </div>
+    </section>
+    <!-- Message input area -->
+    <footer aria-label="Message input area" class="border-t border-gray-300 p-3 bg-white flex items-center space-x-3" id="message-input-area">
+     <button aria-label="Emoji picker" class="text-gray-600 hover:bg-gray-200 p-2 rounded-full transition" id="emoji-btn" type="button">
+      <i class="far fa-smile fa-lg">
+      </i>
+     </button>
+     <button aria-label="Attach file" class="text-gray-600 hover:bg-gray-200 p-2 rounded-full transition" id="attach-btn" type="button">
+      <i class="fas fa-paperclip fa-lg">
+      </i>
+     </button>
+     <textarea aria-label="Type a message" autocomplete="off" class="flex-1 rounded-full border border-gray-300 px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-500 h-10 max-h-24" disabled="" id="message-input" placeholder="Type a message" rows="1"></textarea>
+     <button aria-label="Send message" class="bg-green-500 hover:bg-green-600 disabled:bg-green-300 text-white p-2 rounded-full transition disabled:cursor-not-allowed" disabled="" id="send-btn" type="button">
+      <i class="fas fa-paper-plane fa-lg">
+      </i>
+     </button>
+    </footer>
+   </main>
+  </div>
+  <!-- Emoji picker modal -->
+  <div aria-label="Emoji picker" aria-modal="true" class="hidden fixed bottom-20 right-5 bg-white border border-gray-300 rounded-lg shadow-lg w-72 max-h-80 overflow-y-auto p-3 z-30" id="emoji-picker" role="dialog">
+   <div class="grid grid-cols-8 gap-2" id="emoji-grid">
+   </div>
+  </div>
+  <script>
+   (() => {
+      // Data for chats and messages
+      const chats = [
+        {
+          id: "chat1",
+          name: "Alice Johnson",
+          avatar:
+            "https://placehold.co/50x50/png?text=AJ&font=Inter&font-weight=600&bg=34d058&fg=ffffff",
+          status: "online",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Hey! How are you?",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 5),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "I'm good, thanks! What about you?",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 4.5),
+              read: true,
+            },
+            {
+              id: "m3",
+              sender: "them",
+              text: "I'm great! Are you coming to the party tonight?",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 4),
+              read: true,
+            },
+            {
+              id: "m4",
+              sender: "me",
+              text: "Yes, I will be there around 8pm.",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 3.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat2",
+          name: "Bob Smith",
+          avatar:
+            "https://placehold.co/50x50/png?text=BS&font=Inter&font-weight=600&bg=ff6f61&fg=ffffff",
+          status: "offline",
+          messages: [
+            {
+              id: "m1",
+              sender: "me",
+              text: "Did you finish the report?",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 24),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "them",
+              text: "Almost done, will send it by tomorrow.",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 23.5),
+              read: true,
+            },
+            {
+              id: "m3",
+              sender: "me",
+              text: "Great, thanks!",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 23),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat3",
+          name: "Charlie Davis",
+          avatar:
+            "https://placehold.co/50x50/png?text=CD&font=Inter&font-weight=600&bg=6f42c1&fg=ffffff",
+          status: "online",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Check out this cool photo I took!",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2),
+              read: true,
+              image:
+                "https://placehold.co/300x200/png?text=Photo+from+Charlie&font=Inter&font-weight=600&bg=6f42c1&fg=ffffff",
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "Wow, that looks amazing!",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 1.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat4",
+          name: "Diana Evans",
+          avatar:
+            "https://placehold.co/50x50/png?text=DE&font=Inter&font-weight=600&bg=ffb700&fg=000000",
+          status: "offline",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Can you send me the files from yesterday?",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 48),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "Sure, I will email them now.",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 47.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat5",
+          name: "Ethan Ford",
+          avatar:
+            "https://placehold.co/50x50/png?text=EF&font=Inter&font-weight=600&bg=20c997&fg=ffffff",
+          status: "online",
+          messages: [
+            {
+              id: "m1",
+              sender: "me",
+              text: "Are we still on for the meeting tomorrow?",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 3),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "them",
+              text: "Yes, 10am sharp!",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 2.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat6",
+          name: "Fiona Green",
+          avatar:
+            "https://placehold.co/50x50/png?text=FG&font=Inter&font-weight=600&bg=fd7e14&fg=ffffff",
+          status: "offline",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Happy Birthday! 🎉",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 72),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "Thank you so much!",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 71.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat7",
+          name: "George Harris",
+          avatar:
+            "https://placehold.co/50x50/png?text=GH&font=Inter&font-weight=600&bg=6610f2&fg=ffffff",
+          status: "online",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Did you watch the game last night?",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 6),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "Yes! What a comeback!",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 5.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat8",
+          name: "Hannah Irving",
+          avatar:
+            "https://placehold.co/50x50/png?text=HI&font=Inter&font-weight=600&bg=dc3545&fg=ffffff",
+          status: "offline",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Can you review my code?",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 12),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "Sure, send it over.",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 11.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat9",
+          name: "Ian Jacobs",
+          avatar:
+            "https://placehold.co/50x50/png?text=IJ&font=Inter&font-weight=600&bg=0d6efd&fg=ffffff",
+          status: "online",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Let’s catch up this weekend.",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 20),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "Sounds good! Saturday or Sunday?",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 19.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat10",
+          name: "Julia King",
+          avatar:
+            "https://placehold.co/50x50/png?text=JK&font=Inter&font-weight=600&bg=198754&fg=ffffff",
+          status: "offline",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Thanks for your help today!",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 15),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "Anytime! Happy to help.",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 14.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat11",
+          name: "Kevin Lee",
+          avatar:
+            "https://placehold.co/50x50/png?text=KL&font=Inter&font-weight=600&bg=fd7e14&fg=ffffff",
+          status: "online",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Are you joining the webinar?",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 7),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "Yes, I registered yesterday.",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 6.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat12",
+          name: "Laura Martinez",
+          avatar:
+            "https://placehold.co/50x50/png?text=LM&font=Inter&font-weight=600&bg=6610f2&fg=ffffff",
+          status: "offline",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Let me know when you arrive.",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 10),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "Will do!",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 9.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat13",
+          name: "Michael Nguyen",
+          avatar:
+            "https://placehold.co/50x50/png?text=MN&font=Inter&font-weight=600&bg=20c997&fg=ffffff",
+          status: "online",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Can you send me the presentation slides?",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 8),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "Sure, uploading now.",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 7.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat14",
+          name: "Nina Owens",
+          avatar:
+            "https://placehold.co/50x50/png?text=NO&font=Inter&font-weight=600&bg=ff6f61&fg=ffffff",
+          status: "offline",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Thanks for the invite!",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 13),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "You’re welcome!",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 12.5),
+              read: true,
+            },
+          ],
+        },
+        {
+          id: "chat15",
+          name: "Oliver Parker",
+          avatar:
+            "https://placehold.co/50x50/png?text=OP&font=Inter&font-weight=600&bg=0d6efd&fg=ffffff",
+          status: "online",
+          messages: [
+            {
+              id: "m1",
+              sender: "them",
+              text: "Let’s meet at the cafe at 3pm.",
+              timestamp: new Date(Date.now() - 1000 * 60 * 60 * 1),
+              read: true,
+            },
+            {
+              id: "m2",
+              sender: "me",
+              text: "Perfect, see you there!",
+              timestamp: new Date(Date.now() - 1000 * 60 * 30),
+              read: true,
+            },
+          ],
+        },
+      ];
+
+      // Emoji list (subset)
+      const emojis = [
+        "😀",
+        "😁",
+        "😂",
+        "🤣",
+        "😃",
+        "😄",
+        "😅",
+        "😆",
+        "😉",
+        "😊",
+        "😋",
+        "😎",
+        "😍",
+        "😘",
+        "🥰",
+        "😗",
+        "😙",
+        "😚",
+        "🙂",
+        "🤗",
+        "🤩",
+        "🤔",
+        "🤨",
+        "😐",
+        "😑",
+        "😶",
+        "🙄",
+        "😏",
+        "😣",
+        "😥",
+        "😮",
+        "🤐",
+        "😯",
+        "😪",
+        "😫",
+        "🥱",
+        "😴",
+        "😌",
+        "😛",
+        "😜",
+        "😝",
+        "🤤",
+        "😒",
+        "😓",
+        "😔",
+        "😕",
+        "🙃",
+        "🤑",
+        "😲",
+        "☹️",
+        "🙁",
+        "😖",
+        "😞",
+        "😟",
+        "😤",
+        "😢",
+        "😭",
+        "😦",
+        "😧",
+        "😨",
+        "😩",
+        "🤯",
+        "😬",
+        "😰",
+        "😱",
+        "🥵",
+        "🥶",
+        "😳",
+        "🤪",
+        "😵",
+        "😡",
+        "😠",
+        "🤬",
+        "😷",
+        "🤒",
+        "🤕",
+        "🤢",
+        "🤮",
+        "🤧",
+        "😇",
+        "🥳",
+        "🥺",
+        "🤠",
+        "🤡",
+        "🤥",
+        "🤫",
+        "🤭",
+        "🧐",
+        "🤓",
+      ];
+
+      // State
+      let currentChatId = null;
+      let filteredChats = [...chats];
+
+      // Elements
+      const chatListEl = document.getElementById("chat-list");
+      const messagesEl = document.getElementById("messages");
+      const chatHeaderNameEl = document.getElementById("chat-header-name");
+      const chatHeaderStatusEl = document.getElementById("chat-header-status");
+      const chatHeaderImgEl = document.getElementById("chat-header-img");
+      const messageInputEl = document.getElementById("message-input");
+      const sendBtnEl = document.getElementById("send-btn");
+      const noChatTextEl = document.getElementById("no-chat-text");
+      const emojiPickerEl = document.getElementById("emoji-picker");
+      const emojiGridEl = document.getElementById("emoji-grid");
+      const sidebarMenuBtn = document.getElementById("sidebar-menu-btn");
+      const sidebarMenu = document.getElementById("sidebar-menu");
+      const chatMenuBtn = document.getElementById("chat-menu-btn");
+      const chatMenu = document.getElementById("chat-menu");
+      const searchInputEl = document.getElementById("search-input");
+      const backToSidebarBtn = document.getElementById("back-to-sidebar");
+      const sidebarEl = document.getElementById("sidebar");
+      const mainChatArea = document.getElementById("main-chat-area");
+
+      // Utility: format time
+      function formatTime(date) {
+        const now = new Date();
+        const diff = now - date;
+        if (diff < 1000 * 60 * 60 * 24) {
+          // Today: show HH:MM AM/PM
+          return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        } else {
+          // Older: show date
+          return date.toLocaleDateString();
+        }
+      }
+
+      // Utility: escape HTML to prevent XSS
+      function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // Render chat list
+      function renderChatList() {
+        chatListEl.innerHTML = "";
+        if (filteredChats.length === 0) {
+          chatListEl.innerHTML = `
+            <p class="text-center text-gray-400 mt-10 select-none px-4">
+              No chats found.
+            </p>
+          `;
+          return;
+        }
+        filteredChats.forEach((chat) => {
+          const lastMessage = chat.messages[chat.messages.length - 1];
+          const lastMessageText = lastMessage
+            ? lastMessage.text.length > 30
+              ? lastMessage.text.slice(0, 30) + "..."
+              : lastMessage.text
+            : "";
+          const lastMessageTime = lastMessage ? formatTime(lastMessage.timestamp) : "";
+          const unreadCount = chat.messages.filter(
+            (m) => m.sender === "them" && !m.read
+          ).length;
+
+          const isSelected = chat.id === currentChatId;
+
+          const chatItem = document.createElement("button");
+          chatItem.type = "button";
+          chatItem.className = `w-full flex items-center px-4 py-3 border-b border-gray-200 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition ${
+            isSelected ? "bg-green-50" : ""
+          }`;
+          chatItem.setAttribute("aria-current", isSelected ? "true" : "false");
+          chatItem.setAttribute("aria-label", `Chat with ${chat.name}`);
+          chatItem.addEventListener("click", () => {
+            selectChat(chat.id);
+            if (window.innerWidth < 768) {
+              // On small screens, hide sidebar when chat selected
+              sidebarEl.classList.add("hidden");
+              mainChatArea.classList.remove("hidden");
+              mainChatArea.focus();
+            }
+          });
+
+          chatItem.innerHTML = `
+            <div class="relative flex-shrink-0">
+              <img
+                src="${chat.avatar}"
+                alt="Profile picture of ${chat.name}"
+                class="rounded-full w-12 h-12"
+                loading="lazy"
+              />
+              <span
+                class="absolute bottom-0 right-0 block w-3 h-3 rounded-full ring-2 ring-white ${
+                  chat.status === "online" ? "bg-green-500" : "bg-gray-400"
+                }"
+                title="${chat.status === "online" ? "Online" : "Offline"}"
+              ></span>
+            </div>
+            <div class="flex-1 min-w-0 ml-3 text-left">
+              <div class="flex justify-between items-center">
+                <p class="text-sm font-semibold text-gray-900 truncate">${escapeHtml(
+                  chat.name
+                )}</p>
+                <p class="text-xs text-gray-500 ml-2 flex-shrink-0">${lastMessageTime}</p>
+              </div>
+              <div class="flex justify-between items-center">
+                <p class="text-xs text-gray-600 truncate">${escapeHtml(
+                  lastMessageText
+                )}</p>
+                ${
+                  unreadCount > 0
+                    ? `<span class="ml-2 inline-flex items-center justify-center px-2 py-0.5 text-xs font-semibold leading-none text-white bg-green-600 rounded-full">${unreadCount}</span>`
+                    : ""
+                }
+              </div>
+            </div>
+          `;
+          chatListEl.appendChild(chatItem);
+        });
+      }
+
+      // Render messages for selected chat
+      function renderMessages() {
+        messagesEl.innerHTML = "";
+        if (!currentChatId) {
+          noChatTextEl.classList.remove("hidden");
+          messageInputEl.disabled = true;
+          sendBtnEl.disabled = true;
+          chatHeaderNameEl.textContent = "Select a chat";
+          chatHeaderStatusEl.textContent = "WhatsApp Web Clone";
+          chatHeaderImgEl.src =
+            "https://placehold.co/40x40/png?text=WA&font=Inter&font-weight=600&bg=25D366&fg=fff";
+          chatHeaderImgEl.alt = "WhatsApp logo white text on green background";
+          return;
+        }
+        noChatTextEl.classList.add("hidden");
+        messageInputEl.disabled = false;
+        sendBtnEl.disabled = true;
+
+        const chat = chats.find((c) => c.id === currentChatId);
+        if (!chat) return;
+
+        chatHeaderNameEl.textContent = chat.name;
+        chatHeaderStatusEl.textContent =
+          chat.status === "online" ? "online" : "last seen recently";
+        chatHeaderImgEl.src = chat.avatar;
+        chatHeaderImgEl.alt = `Profile picture of ${chat.name}`;
+
+        chat.messages.forEach((msg) => {
+          const isMe = msg.sender === "me";
+          const messageWrapper = document.createElement("div");
+          messageWrapper.className = `flex ${isMe ? "justify-end" : "justify-start"}`;
+
+          const messageBubble = document.createElement("div");
+          messageBubble.className = `max-w-xs md:max-w-md px-4 py-2 rounded-lg break-words whitespace-pre-wrap ${
+            isMe
+              ? "bg-green-500 text-white rounded-br-none"
+              : "bg-white text-gray-900 rounded-bl-none border border-gray-300"
+          } shadow-sm relative`;
+
+          // If message has image
+          if (msg.image) {
+            const imgEl = document.createElement("img");
+            imgEl.src = msg.image;
+            imgEl.alt = `Image sent by ${isMe ? "you" : chat.name}`;
+            imgEl.className = "rounded-lg mb-1 max-w-full h-auto cursor-pointer";
+            imgEl.loading = "lazy";
+            messageBubble.appendChild(imgEl);
+          }
+
+          if (msg.text) {
+            const textEl = document.createElement("p");
+            textEl.textContent = msg.text;
+            messageBubble.appendChild(textEl);
+          }
+
+          // Timestamp and read status
+          const timeEl = document.createElement("span");
+          timeEl.className = `text-xs absolute bottom-1 right-2 ${
+            isMe ? "text-green-200" : "text-gray-400"
+          } select-none`;
+          timeEl.textContent = formatTime(msg.timestamp);
+          messageBubble.appendChild(timeEl);
+
+          // Read icon for sent messages
+          if (isMe) {
+            const readIcon = document.createElement("span");
+            readIcon.className = `absolute bottom-1 right-6 text-xs select-none`;
+            if (msg.read) {
+              readIcon.innerHTML = `
+                <svg aria-label="Read" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#34B7F1" viewBox="0 0 16 16">
+                  <path d="M15.25 3.25a.75.75 0 0 1 0 1.06l-8.5 8.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06L6.5 11.44l7.97-7.97a.75.75 0 0 1 1.06 0z"/>
+                </svg>
+              `;
+            } else {
+              readIcon.innerHTML = `
+                <svg aria-label="Sent" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#999" viewBox="0 0 16 16">
+                  <path d="M15.25 3.25a.75.75 0 0 1 0 1.06l-8.5 8.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06L6.5 11.44l7.97-7.97a.75.75 0 0 1 1.06 0z"/>
+                </svg>
+              `;
+            }
+            messageBubble.appendChild(readIcon);
+          }
+
+          messageWrapper.appendChild(messageBubble);
+          messagesEl.appendChild(messageWrapper);
+        });
+
+        // Scroll to bottom
+        setTimeout(() => {
+          messagesEl.parentElement.scrollTop = messagesEl.parentElement.scrollHeight;
+        }, 10);
+      }
+
+      // Select chat
+      function selectChat(chatId) {
+        currentChatId = chatId;
+        // Mark all messages from them as read
+        const chat = chats.find((c) => c.id === chatId);
+        if (chat) {
+          chat.messages.forEach((msg) => {
+            if (msg.sender === "them") {
+              msg.read = true;
+            }
+          });
+        }
+        renderChatList();
+        renderMessages();
+      }
+
+      // Send message
+      function sendMessage() {
+        const text = messageInputEl.value.trim();
+        if (!text || !currentChatId) return;
+        const chat = chats.find((c) => c.id === currentChatId);
+        if (!chat) return;
+
+        const newMsg = {
+          id: "m" + (chat.messages.length + 1),
+          sender: "me",
+          text,
+          timestamp: new Date(),
+          read: true,
+        };
+        chat.messages.push(newMsg);
+        messageInputEl.value = "";
+        sendBtnEl.disabled = true;
+        autoResizeTextarea();
+        renderChatList();
+        renderMessages();
+
+        // Simulate reply after 1.5s
+        setTimeout(() => {
+          const replyMsg = {
+            id: "m" + (chat.messages.length + 1),
+            sender: "them",
+            text: "👍",
+            timestamp: new Date(),
+            read: false,
+          };
+          chat.messages.push(replyMsg);
+          renderChatList();
+          if (currentChatId === chat.id) {
+            renderMessages();
+          }
+        }, 1500);
+      }
+
+      // Filter chats by search
+      function filterChats(query) {
+        const q = query.toLowerCase();
+        filteredChats = chats.filter(
+          (chat) =>
+            chat.name.toLowerCase().includes(q) ||
+            chat.messages.some((msg) => msg.text.toLowerCase().includes(q))
+        );
+        renderChatList();
+      }
+
+      // Render emoji picker
+      function renderEmojiPicker() {
+        emojiGridEl.innerHTML = "";
+        emojis.forEach((emoji) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.className =
+            "text-2xl p-1 rounded hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-green-500";
+          btn.textContent = emoji;
+          btn.addEventListener("click", () => {
+            messageInputEl.value += emoji;
+            messageInputEl.focus();
+            sendBtnEl.disabled = messageInputEl.value.trim() === "";
+            autoResizeTextarea();
+            hideEmojiPicker();
+          });
+          emojiGridEl.appendChild(btn);
+        });
+      }
+
+      // Show/hide emoji picker
+      function toggleEmojiPicker() {
+        if (emojiPickerEl.classList.contains("hidden")) {
+          showEmojiPicker();
+        } else {
+          hideEmojiPicker();
+        }
+      }
+      function showEmojiPicker() {
+        emojiPickerEl.classList.remove("hidden");
+        // Position near emoji button
+        const rect = document.getElementById("emoji-btn").getBoundingClientRect();
+        emojiPickerEl.style.bottom = `${window.innerHeight - rect.top + 10}px`;
+        emojiPickerEl.style.right = `${window.innerWidth - rect.right}px`;
+      }
+      function hideEmojiPicker() {
+        emojiPickerEl.classList.add("hidden");
+      }
+
+      // Auto resize textarea
+      function autoResizeTextarea() {
+        messageInputEl.style.height = "auto";
+        messageInputEl.style.height = messageInputEl.scrollHeight + "px";
+      }
+
+      // Toggle sidebar menu
+      sidebarMenuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        sidebarMenu.classList.toggle("hidden");
+        chatMenu.classList.add("hidden");
+        hideEmojiPicker();
+      });
+
+      // Toggle chat menu
+      chatMenuBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        chatMenu.classList.toggle("hidden");
+        sidebarMenu.classList.add("hidden");
+        hideEmojiPicker();
+      });
+
+      // Close menus and emoji picker on outside click
+      document.body.addEventListener("click", () => {
+        sidebarMenu.classList.add("hidden");
+        chatMenu.classList.add("hidden");
+        hideEmojiPicker();
+      });
+
+      // Prevent closing menus when clicking inside
+      sidebarMenu.addEventListener("click", (e) => e.stopPropagation());
+      chatMenu.addEventListener("click", (e) => e.stopPropagation());
+      emojiPickerEl.addEventListener("click", (e) => e.stopPropagation());
+
+      // Search input event
+      searchInputEl.addEventListener("input", (e) => {
+        filterChats(e.target.value);
+      });
+
+      // Message input event
+      messageInputEl.addEventListener("input", (e) => {
+        sendBtnEl.disabled = e.target.value.trim() === "";
+        autoResizeTextarea();
+      });
+
+      // Send button click
+      sendBtnEl.addEventListener("click", sendMessage);
+
+      // Enter key sends message (Shift+Enter for newline)
+      messageInputEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          if (!sendBtnEl.disabled) {
+            sendMessage();
+          }
+        }
+      });
+
+      // Emoji button click
+      document.getElementById("emoji-btn").addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleEmojiPicker();
+      });
+
+      // Attach buttons (no real functionality, just alert)
+      document.getElementById("attach-btn").addEventListener("click", () => {
+        alert("Attach file feature is not implemented in this demo.");
+      });
+      document.getElementById("chat-attach-btn")?.addEventListener("click", () => {
+        alert("Attach file feature is not implemented in this demo.");
+      });
+
+      // Back to sidebar button (mobile)
+      backToSidebarBtn.addEventListener("click", () => {
+        sidebarEl.classList.remove("hidden");
+        mainChatArea.classList.add("hidden");
+        sidebarEl.focus();
+      });
+
+      // Responsive: show sidebar on desktop, hide on mobile chat open
+      function handleResize() {
+        if (window.innerWidth >= 768) {
+          sidebarEl.classList.remove("hidden");
+          mainChatArea.classList.remove("hidden");
+        } else {
+          if (!currentChatId) {
+            sidebarEl.classList.remove("hidden");
+            mainChatArea.classList.add("hidden");
+          }
+        }
+      }
+      window.addEventListener("resize", handleResize);
+
+      // Initialize
+      renderChatList();
+      renderEmojiPicker();
+      renderMessages();
+      handleResize();
+    })();
+  </script>
+ </body>
+</html>
