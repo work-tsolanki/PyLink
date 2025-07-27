@@ -1,34 +1,48 @@
 .leftNavBarBackground{
-    display: block;
     background-color: hsla(0, 0%, 5%, 0.920);
     background-image: url("vectors//bg_doodle.png");
     background-size: 50vh;
     background-blend-mode:darken;
     float: left;
     /*padding-bottom: 88vh;*/
-    width: 25vh;
+    transition: width 0.5s ease-in-out;
     box-shadow: 0px 0px 1px 1px #81689D inset;
 }
 
 .leftNavBarStyling{
     margin-top: 3rem;
-    margin-left: 2vh;
     list-style-type: none;
     color: aliceblue;
     font-size: larger;
 }
 
-.leftNavBarStyling li{
+.leftNavBarStyling ul{
     margin-top: 3vh;
-    border: #81689D 1px solid;
-    padding-left: 2vh;
-    padding-top: 1vh;
+    margin-left: 2vh;
+    padding-left: 1vh;
+    /* 
+    border: #81689D 1px solid; 
     box-shadow: 0px 0px 2px #81689D;
     border-radius: 5px;
+    */
+    transition: box-shadow 0.5s ease-in-out;
+    padding-top: 1vh;
     width: 19vh;
     height: 4vh;
-    text-align: left;
+    list-style-type: none;
+}
 
+.leftNavBarStyling ul a li{
+    display: block;
+    float: left;
+}
+
+.leftNavBarStyling ul .slidingLeftNavBar{
+    display: none;
+}
+
+.leftNavBarStyling ul:hover .slidingLeftNavBar{
+    display: block;
 }
 
 .leftNavBarStyling a:link{
