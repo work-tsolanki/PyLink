@@ -2,7 +2,7 @@
     display: block;
     background-color: #0C0C0C;
     float: left;
-    padding-bottom: 88vh;
+    /*padding-bottom: 88vh;*/
     width: 25vh;
     box-shadow: 0px 0px 1px 1px #81689D inset;
 }
@@ -16,6 +16,7 @@
 }
 
 .leftNavBarStyling li{
+    margin-top: 3vh;
     border: #81689D 1px solid;
     padding-left: 2vh;
     padding-top: 1vh;
@@ -52,4 +53,10 @@ body{
     margin-left: 0%;
     margin-top: 0%;
     overflow: hidden;
+}
+
+iframe{
+    width: 400px;
+    height: 100vh;
+    border: 1px solid #81689D; 
 }
