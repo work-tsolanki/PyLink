@@ -1,6 +1,9 @@
 .leftNavBarBackground{
     display: block;
-    background-color: #0C0C0C;
+    background-color: #0c0c0ce0;
+    background-image: url("vectors//bg_doodle.png");
+    background-size: 50vh;
+    background-blend-mode:darken;
     float: left;
     /*padding-bottom: 88vh;*/
     width: 25vh;
@@ -57,6 +60,6 @@ body{
 
 iframe{
     width: 400px;
-    height: 100vh;
+    height: 99.8vh;
     border: 1px solid #81689D; 
 }
