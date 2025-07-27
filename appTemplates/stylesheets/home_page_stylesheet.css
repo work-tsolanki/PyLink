@@ -1,6 +1,6 @@
 .leftNavBarBackground{
     background-color: hsla(0, 0%, 5%, 0.920);
-    background-image: url("vectors//bg_doodle.png");
+    background-image: url("../../vectors//bg_doodle.png");
     background-size: 50vh;
     background-blend-mode:darken;
     float: left;
