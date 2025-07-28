@@ -38,7 +38,21 @@ h1{
     border-radius: 5px;
     position: absolute;    
     transition: opacity 0.3s linear;
-    margin-left: 35vh;
+    margin-left: 31vh;
+    text-align: right;
+    
+}
+
+.show_menu{
+    opacity: 0;
+    color: aliceblue;
+    margin-top: 7vh;
+    background-color: #1b1b1b;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;    
+    transition: opacity 0.3s linear;
+    margin-left: 42vh;
     text-align: right;
     
 }
