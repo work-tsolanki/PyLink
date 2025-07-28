@@ -4,18 +4,50 @@
 }
 
 h1{
-    font: 50px "Charm";
+    font: 40px "Charm";
     color: aliceblue;
-    margin-top: 0%;
+    margin-top: 1vh;
+    margin-left: 1vh;
     padding-top: 0%;
     padding-bottom: 1vh;
-    border-bottom: 2px solid #81689D;
-    text-align: center;
+    /*border-bottom: 2px solid #81689D;*/ 
+    text-align: left;
+}
+
+.header_section{
+    display:flex;
+}
+
+.img_newchat{
+    margin: 3vh 0vh 0vh 20vh;
+    cursor: pointer;
+}
+
+.img_menudots{
+    margin: 3vh 0vh 0vh 5vh;
+    padding-top: 4px;
+    cursor: pointer;
+}
+
+.show_newchat{
+    opacity: 0;
+    color: aliceblue;
+    margin-top: 7vh;
+    background-color: #1b1b1b;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;    
+    transition: opacity 0.3s linear;
+    margin-left: 35vh;
+    text-align: right;
+    
 }
 
 body{
-    background-color: hsla(0, 0%, 5%, 0.920);
-    background-image: url("../../vectors/bg_doodle.png");
+    background-color: #0C0C0C;
+    /*background-image: url("../../vectors/bg_doodle.png");*/
     background-size: cover;
     background-blend-mode:darken;
+    margin-top: 0%;
+    padding-top: 0%;
 }
