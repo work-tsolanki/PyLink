@@ -39,12 +39,11 @@
 }
 
 .leftNavBarStyling ul a .slidingLeftNavBar{
-    opacity: 0;
-    transition: opacity 0.5s linear;
+    display: none;
 }
 
 .leftNavBarStyling ul:hover .slidingLeftNavBar{
-    opacity: 1;
+    display: block;
 }
 
 .leftNavBarStyling a:link{
