@@ -9,13 +9,15 @@ h1{
     margin-top: 1vh;
     margin-left: 1vh;
     padding-top: 0%;
-    padding-bottom: 1vh;
     /*border-bottom: 2px solid #81689D;*/ 
     text-align: left;
+    padding-bottom: 2vh;
+    margin-bottom: 0%;
 }
 
 .header_section{
     display:flex;
+    padding-bottom: 0%;
 }
 
 .img_newchat{
@@ -59,9 +61,21 @@ h1{
 
 .srch_styling{
     background-color: #1b1b1b;
-    border: 2px solid #81689D;
-    width: 10vh;
-    height: 4vh;
+    width: 44vh;
+    height: 4.5vh;
+    border-radius: 20px;
+    margin-left: 1vh;
+    margin-top: 0%;
+    padding-left: 2vh;
+    font-family: "Merriweather";
+    font-size: large;
+    color: aliceblue;
+    outline: none;
+    border: none;
+}
+
+.srch_styling:focus{
+    border: 1px solid #81689D;
 }
 
 body{
