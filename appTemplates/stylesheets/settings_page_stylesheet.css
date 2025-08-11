@@ -58,6 +58,85 @@ h1{
     border: 1px solid #81689D;
 }
 
+.ppf_thumbnail{
+    border-radius: 50%;
+}
+#ppf_thumbnail{
+    padding: 3vh 2vh 2vh 2vh;
+    margin: 1vh 0vh 0vh 0.5vh;
+}
+#ppf_thumbnail:hover{
+    background-color: #141414;
+    border-radius: 2vh;
+}
+
+.user_credential_thumbnail{
+    position: absolute;
+    color: aliceblue;
+    font-size: 2.3vh;
+    margin: 2vh 0vh 0vh 2vh;
+}
+
+.top-ruler{
+    border-color:#0c0c0c;
+    margin-top: 2vh;
+    width: 45vh;
+}
+
+.bottom-ruler{
+    border-color:#0c0c0c;
+    margin-top: 2vh;
+    margin-bottom: 10vh;
+    width: 45vh;
+}
+
+.settings_buttons{
+    margin-top: 3vh;
+}
+
+.settings_buttons button{
+    width: 45vh;
+    margin-left: 2vh;
+    padding: 2.5vh 2.5vh 2.5vh 1vh;
+    border: none;
+    outline: none;
+    background-color: #0c0c0c;
+    color: aliceblue;
+    border-radius: 2vh;
+    text-align: left;
+}
+
+.settings_buttons button .setting-head{
+    position: absolute;
+    text-indent: 2vh;
+    font-size: 2.1vh;
+    color: #81689D;
+}
+
+.settings_buttons button .logout{
+    position: absolute;
+    margin-top: 1vh;
+    text-indent: 2vh;
+    font-size: 2.3vh;
+    color: #a70104;
+}
+
+.settings_buttons button .setting-subtext{
+    position: absolute;
+    margin-top: 3vh;
+    text-indent: 2vh;
+    font-size: 1.8vh;
+    color: rgb(161, 166, 170);
+}
+
+.settings_buttons button img{
+    padding: 1vh;
+}
+
+.settings_buttons button:hover{
+    background-color: #141414;
+}
+
 body{
     background-color: #0c0c0c;
     background-image: url("../../vectors/bg_doodle.png");
@@ -65,4 +144,12 @@ body{
     background-blend-mode:darken;
     margin-top: 0%;
     padding-top: 0%;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #81689D;
+  border-radius: 3vh;
 }
