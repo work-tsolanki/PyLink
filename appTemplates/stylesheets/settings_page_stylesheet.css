@@ -4,7 +4,7 @@
 }
 
 h1{
-    font: 40px "Charm";
+    font: 30px "Nata Sans";
     color: aliceblue;
     margin-top: 1vh;
     margin-left: 1vh;
@@ -63,18 +63,25 @@ h1{
 }
 #ppf_thumbnail{
     padding: 3vh 2vh 2vh 2vh;
-    margin: 1vh 0vh 0vh 0.5vh;
+    margin: 2vh 0vh 0vh 0.5vh;
 }
 #ppf_thumbnail:hover{
     background-color: #141414;
     border-radius: 2vh;
 }
 
-.user_credential_thumbnail{
+.user-name_credential_thumbnail{
     position: absolute;
     color: aliceblue;
     font-size: 2.3vh;
-    margin: 2vh 0vh 0vh 2vh;
+    margin: 1vh 0vh 0vh 2vh;
+}
+
+.user-about_credential_thumbnail{
+    position: absolute;
+    color: #aab0b5;
+    font-size: 2vh;
+    margin: 4.5vh 0vh 0vh 2vh;
 }
 
 .top-ruler{
@@ -126,7 +133,7 @@ h1{
     margin-top: 3vh;
     text-indent: 2vh;
     font-size: 1.8vh;
-    color: rgb(161, 166, 170);
+    color: #aab0b5;
 }
 
 .settings_buttons button img{

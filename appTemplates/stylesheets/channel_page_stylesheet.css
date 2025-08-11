@@ -4,7 +4,7 @@
 }
 
 h1{
-    font: 40px "Charm";
+    font: 30px "Nata Sans";
     color: aliceblue;
     margin-top: 1vh;
     margin-left: 1vh;
@@ -21,7 +21,7 @@ h1{
 }
 
 .img_newchannel{
-    margin: 3vh 0vh 0vh 25vh;
+    margin: 2vh 0vh 0vh 25vh;
     cursor: pointer;
 }
 
@@ -29,7 +29,7 @@ h1{
     display: none;
     color: aliceblue;
     margin-top: 7vh;
-    background-color: #1b1b1b;
+    background-color: #242424;
     padding: 5px;
     border-radius: 10px;
     border-top-left-radius: 1%;
